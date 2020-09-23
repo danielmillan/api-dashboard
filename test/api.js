@@ -24,7 +24,7 @@ describe("SERVER API TEST:", () => {
         .request(server)
         .get(rootPath)
         .end((err, res) => {
-          if (err) console.error(err);
+          if (err) done(err);
           expect(res).to.have.status(200);
           expect(res.body).to.be.a("object");
           done();
@@ -38,7 +38,7 @@ describe("SERVER API TEST:", () => {
         .request(server)
         .get(`${rootPath}/main`)
         .end((err, res) => {
-          if (err) console.error(err);
+          if (err) done(err);
           expect(res).to.have.status(404);
           expect(res.body).to.be.a("object");
           done();
@@ -52,7 +52,7 @@ describe("SERVER API TEST:", () => {
         .request(server)
         .get(`${rootPath}/users`)
         .end((err, res) => {
-          if (err) console.error(err);
+          if (err) done(err);
           expect(res).to.have.status(200);
           expect(res.body).to.be.a("object");
           done();
@@ -67,7 +67,7 @@ describe("SERVER API TEST:", () => {
         .post(`${rootPath}/users`)
         .send(user)
         .end((err, res) => {
-          if (err) console.error(err);
+          if (err) done(err);
           expect(res).to.have.status(200);
           expect(res.body).to.be.a("object");
           done();
@@ -82,7 +82,7 @@ describe("SERVER API TEST:", () => {
         .put(`${rootPath}/users/${user.identification}`)
         .send(user)
         .end((err, res) => {
-          if (err) console.error(err);
+          if (err) done(err);
           expect(res).to.have.status(200);
           expect(res.body).to.be.a("object");
           done();
@@ -96,7 +96,7 @@ describe("SERVER API TEST:", () => {
         .request(server)
         .delete(`${rootPath}/users/${user.identification}`)
         .end((err, res) => {
-          if (err) console.error(err);
+          if (err) done(err);
           expect(res).to.have.status(200);
           expect(res.body).to.be.a("object");
           done();
