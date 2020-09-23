@@ -1,5 +1,6 @@
 //Libraries
-const app = require("express")();
+const express = require("express");
+const app = express();
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
@@ -17,13 +18,16 @@ var accessLogStream = fs.createWriteStream(
 
 // Init middlewares
 app.use(cors());
-app.use(morgan("combined", { stream: accessLogStream }));
+if (process.env.NODE_ENV !== "test")
+  app.use(morgan("combined", { stream: accessLogStream }));
 app.use(require("body-parser").json());
 
 // Start routes
 app.use(require("./server/routes"));
 
+module.exports = app; // for testing
+
 // init server
-const server = app.listen(PORT, () => {
-  console.log(`Server at ready in port: ${server.address().port}`);
+app.listen(PORT, () => {
+  console.log(`Server at ready in port: ${PORT}`);
 });

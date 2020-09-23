@@ -1,5 +1,6 @@
 //Libraries
-const app = require("express")();
+const express = require("express");
+const app = express();
 
 // URL ROOT PATH
 const path = "/api/v1";
@@ -10,7 +11,7 @@ app.use(`${path}/vehicles`, require("./vehicles"));
 
 // Root Path
 app.get(path, (req, res) => {
-  return res.json({
+  return res.status(200).json({
     status: "success",
     message: "API active and running.",
   });

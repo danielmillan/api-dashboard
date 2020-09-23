@@ -1,9 +1,9 @@
 // Libraries
 const client = require("../config/elastic");
 
-const createUser = async (req, res) => {
+const createUser = (req, res) => {
   const user = req.body;
-  await client
+  client
     .create({
       index: "users",
       id: user.identification,
@@ -14,7 +14,9 @@ const createUser = async (req, res) => {
       },
     })
     .then((result) => {
-      return res.json({ status: "success", message: result.body.result });
+      return res
+        .status(200)
+        .json({ status: "success", message: result.body.result });
     })
     .catch((err) => {
       if (err)
@@ -40,7 +42,9 @@ const updateUser = (req, res) => {
       },
     })
     .then((result) => {
-      return res.json({ status: "success", message: result.body.result });
+      return res
+        .status(200)
+        .json({ status: "success", message: result.body.result });
     })
     .catch((err) => {
       if (err) return res.status(500).json({ status: "failed", message: err });
@@ -59,7 +63,9 @@ const getUsers = (req, res) => {
     },
     (err, result) => {
       if (err) return res.status(500).json({ status: "failed", message: err });
-      return res.json({ status: "success", message: result.body.hits });
+      return res
+        .status(200)
+        .json({ status: "success", message: result.body.hits });
     }
   );
 };
@@ -72,7 +78,9 @@ const deleteUser = (req, res) => {
       id: identification,
     })
     .then((result) => {
-      return res.json({ status: "success", message: result.body.result });
+      return res
+        .status(200)
+        .json({ status: "success", message: result.body.result });
     })
     .catch((err) => {
       if (err) return res.status(500).json({ status: "failed", message: err });
