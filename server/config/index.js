@@ -1,9 +1,9 @@
 // Libraries
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 
 dotenv.config();
 
 module.exports = {
-    PORT: process.env.PORT,
-    DB_URL: process.env.DB_URL
-}
+  PORT: process.env.PORT,
+  ELASTICSEARCH_URL: process.env.ELASTICSEARCH_URL,
+};

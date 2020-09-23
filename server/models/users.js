@@ -1,87 +1,82 @@
-// Database
-const connection = require("../database");
+// Libraries
+const client = require("../config/elastic");
 
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
   const user = req.body;
-  connection.query(
-    "INSERT INTO mng_users() VALUES (?,?,?,?,now(),now())",
-    [user.identification, user.name, user.last_name, user.position_id],
-    (error, results, fields) => {
-      if (error) {
-        if (error.code === "ER_DUP_ENTRY")
-          return res.status(500).json({
-            status: "failed",
-            message: "User has already exist.",
-          });
-        return res.status(500).json({
-          status: "failed",
-          message: error,
-        });
-      }
-      return res.json({
-        status: "success",
-        message: "User created.",
-      });
-    }
-  );
+  await client
+    .create({
+      index: "users",
+      id: user.identification,
+      body: {
+        name: user.name,
+        last_name: user.last_name,
+        position: user.position_id,
+      },
+    })
+    .then((result) => {
+      return res.json({ status: "success", message: result.body.result });
+    })
+    .catch((err) => {
+      if (err)
+        return res
+          .status(409)
+          .json({ status: "failed", message: err.meta.body });
+    });
 };
 
 const updateUser = (req, res) => {
   const user = req.body;
   const identification = req.params.id;
-  connection.query(
-    "UPDATE mng_users SET name=?, last_name=?, position_id=?, updated_at=now() where identification=?",
-    [user.name, user.last_name, user.position_id, identification],
-    (error, results, fields) => {
-      if (error)
-        return res.status(500).json({
-          status: "failed",
-          message: error,
-        });
-      return res.json({
-        status: "success",
-        message: "User updated.",
-      });
-    }
-  );
+  client
+    .update({
+      index: "users",
+      id: identification,
+      body: {
+        doc: {
+          name: user.name,
+          last_name: user.last_name,
+          position: user.position_id,
+        },
+      },
+    })
+    .then((result) => {
+      return res.json({ status: "success", message: result.body.result });
+    })
+    .catch((err) => {
+      if (err) return res.status(500).json({ status: "failed", message: err });
+    });
 };
 
 const getUsers = (req, res) => {
-  connection.query(
-    `select a.identification, a.name, a.last_name, a.position_id, b.name_position
-    from mng_users a
-    inner join mng_positions b on b.id_position=a.position_id order by a.created_at`,
-    (error, results, fields) => {
-      if (error)
-        return res.status(500).json({
-          status: "failed",
-          message: error,
-        });
-      return res.json({
-        status: "success",
-        message: results,
-      });
+  client.search(
+    {
+      index: "users",
+      body: {
+        query: {
+          match_all: {},
+        },
+      },
+    },
+    (err, result) => {
+      if (err) return res.status(500).json({ status: "failed", message: err });
+      return res.json({ status: "success", message: result.body.hits });
     }
   );
 };
 
 const deleteUser = (req, res) => {
   const identification = req.params.id;
-  connection.query(
-    "DELETE FROM mng_users where identification=?",
-    [identification],
-    (error, results, fields) => {
-      if (error)
-        return res.status(500).json({
-          status: "failed",
-          message: error,
-        });
-      return res.json({
-        status: "success",
-        message: "User deleted.",
-      });
-    }
-  );
+  client
+    .delete({
+      index: "users",
+      id: identification,
+    })
+    .then((result) => {
+      return res.json({ status: "success", message: result.body.result });
+    })
+    .catch((err) => {
+      if (err) return res.status(500).json({ status: "failed", message: err });
+    });
 };
 
 module.exports = {

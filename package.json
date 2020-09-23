@@ -5,11 +5,12 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app",
-    "test": "mocha"
+    "test": "mocha --timeout=3000"
   },
   "author": "danielmillan",
   "license": "ISC",
   "dependencies": {
+    "@elastic/elasticsearch": "^7.9.1",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
@@ -19,6 +20,10 @@
     "mocha": "^8.1.3",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "@elastic/elasticsearch-mock": "^0.3.0"
   }
 }

@@ -6,7 +6,7 @@ const path = "/api/v1";
 
 // Import All Routes
 app.use(`${path}/users`, require("./users"));
-app.use(`${path}/positions`, require("./positions"));
+app.use(`${path}/vehicles`, require("./vehicles"));
 
 // Root Path
 app.get(path, (req, res) => {

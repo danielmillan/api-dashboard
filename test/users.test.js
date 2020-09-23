@@ -1,6 +1,5 @@
 "use stricts";
 
-const { use } = require("chai");
 // Libraries
 const chai = require("chai");
 const chaiHttp = require("chai-http");
@@ -18,7 +17,19 @@ const user = {
   position_id: 1,
 };
 
-describe("Insert a User:", () => {
+describe("GET /users:", () => {
+  it("should get all users", (done) => {
+    chai
+      .request(URL)
+      .get("/users")
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
+describe("POST /users:", () => {
   it("should insert a user", (done) => {
     chai
       .request(URL)
@@ -31,32 +42,20 @@ describe("Insert a User:", () => {
   });
 });
 
-describe("Insert a User:with error", () => {
+describe("POST /users - error:", () => {
   it("should receive an error", (done) => {
     chai
       .request(URL)
       .post("/users")
       .send(user)
       .end((err, res) => {
-        expect(res).to.have.status(500);
+        expect(res).to.have.status(409);
         done();
       });
   });
 });
 
-describe("Get all Users:", () => {
-  it("should get all users", (done) => {
-    chai
-      .request(URL)
-      .get("/users")
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        done();
-      });
-  });
-});
-
-describe("Update a User:", () => {
+describe("PUT /users:", () => {
   user["name"] = "Daniel F";
   it("should update a user", (done) => {
     chai
@@ -70,7 +69,7 @@ describe("Update a User:", () => {
   });
 });
 
-describe("Delete the User:", () => {
+describe("DELETE /users:", () => {
   it("should delete a user", (done) => {
     chai
       .request(URL)
