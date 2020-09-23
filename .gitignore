@@ -1,8 +1,9 @@
 node_modules/
-.env
 
 # test files
 .nyc_output/
 coverage/
 .env
-.env
+
+# logs
+server/logs/access.log

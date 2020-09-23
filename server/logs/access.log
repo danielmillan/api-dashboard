@@ -1969,3 +1969,4 @@
 ::1 - - [23/Sep/2020:23:24:21 +0000] "GET /api/v1/users HTTP/1.1" 200 95 "-" "PostmanRuntime/7.26.5"
 ::1 - - [23/Sep/2020:23:24:28 +0000] "POST /api/v1/users HTTP/1.1" 200 40 "-" "PostmanRuntime/7.26.5"
 ::1 - - [23/Sep/2020:23:24:31 +0000] "GET /api/v1/users HTTP/1.1" 200 232 "-" "PostmanRuntime/7.26.5"
+::1 - - [23/Sep/2020:23:48:52 +0000] "GET /api/v1/users HTTP/1.1" 200 232 "-" "PostmanRuntime/7.26.5"
