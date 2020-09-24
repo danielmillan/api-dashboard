@@ -18,8 +18,7 @@ var accessLogStream = fs.createWriteStream(
 
 // Init middlewares
 app.use(cors());
-if (process.env.NODE_ENV !== "test")
-  app.use(morgan("combined", { stream: accessLogStream }));
+app.use(morgan("combined", { stream: accessLogStream }));
 app.use(require("body-parser").json());
 
 // Start routes

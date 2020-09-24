@@ -1,6 +1,5 @@
 //Libraries
-const express = require("express");
-const app = express();
+const app = require("express")();
 
 // URL ROOT PATH
 const path = "/api/v1";

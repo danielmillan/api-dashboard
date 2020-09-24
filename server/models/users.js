@@ -19,10 +19,7 @@ const createUser = (req, res) => {
         .json({ status: "success", message: result.body.result });
     })
     .catch((err) => {
-      if (err)
-        return res
-          .status(409)
-          .json({ status: "failed", message: err.meta.body });
+      return res.status(409).json({ status: "failed", message: err.meta.body });
     });
 };
 
@@ -47,7 +44,7 @@ const updateUser = (req, res) => {
         .json({ status: "success", message: result.body.result });
     })
     .catch((err) => {
-      if (err) return res.status(500).json({ status: "failed", message: err });
+      return res.status(500).json({ status: "failed", message: err });
     });
 };
 
@@ -62,7 +59,6 @@ const getUsers = (req, res) => {
       },
     },
     (err, result) => {
-      if (err) return res.status(500).json({ status: "failed", message: err });
       return res
         .status(200)
         .json({ status: "success", message: result.body.hits });
@@ -83,7 +79,7 @@ const deleteUser = (req, res) => {
         .json({ status: "success", message: result.body.result });
     })
     .catch((err) => {
-      if (err) return res.status(500).json({ status: "failed", message: err });
+      return res.status(500).json({ status: "failed", message: err });
     });
 };
 
