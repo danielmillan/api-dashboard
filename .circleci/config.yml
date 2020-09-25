@@ -5,10 +5,3 @@ workflows:
   app-tests:
     jobs:
       - node/test
-    parameters:
-      app-dir:
-        default: ./server
-        description: >-
-          Path to the directory containing the package.json file. Not needed if
-          package.json lives in the root.
-        type: string
