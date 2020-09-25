@@ -4,8 +4,8 @@
   "description": "A powerful API to dashboard project",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app",
-    "test": "mocha --timeout=3000 --exit",
+    "start": "nodemon server/app",
+    "test": "mocha server/test --timeout=3000 --exit",
     "coverage": "nyc --reporter=html npm run test"
   },
   "author": "danielmillan",
