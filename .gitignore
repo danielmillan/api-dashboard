@@ -7,3 +7,4 @@ coverage/
 
 # logs
 server/logs/access.log
+package-lock.json

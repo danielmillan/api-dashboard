@@ -7,12 +7,12 @@ const path = require("path");
 const morgan = require("morgan");
 
 // App config
-const config = require("./server/config");
+const config = require("./config");
 const { PORT } = config;
 
 // Create a write stream
 var accessLogStream = fs.createWriteStream(
-  path.join(__dirname, "server/logs/access.log"),
+  path.join(__dirname, "logs/access.log"),
   { flags: "a" }
 );
 
@@ -22,7 +22,7 @@ app.use(morgan("combined", { stream: accessLogStream }));
 app.use(require("body-parser").json());
 
 // Start routes
-app.use(require("./server/routes"));
+app.use(require("./routes"));
 
 module.exports = app; // for testing
 
