@@ -1,4 +1,4 @@
-parameters:
+parameter:
   app-dir: server
 orbs:
   node: circleci/node@4.0.0
