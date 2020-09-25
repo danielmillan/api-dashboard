@@ -1,7 +1,6 @@
-parameter:
-  app-dir: server
 orbs:
   node: circleci/node@4.0.0
+  app-dir: server
 version: 2.1
 workflows:
   app-tests:
