@@ -2,13 +2,13 @@ orbs:
   node: circleci/node@4.0.0
 version: 2.1
 workflows:
-  parameters:
-    app-dir:
-      default: ./server
-      description: >-
-        Path to the directory containing the package.json file. Not needed if
-        package.json lives in the root.
-      type: string
   app-tests:
     jobs:
+      parameters:
+        app-dir:
+          default: ./server
+          description: >-
+            Path to the directory containing the package.json file. Not needed if
+            package.json lives in the root.
+          type: string
       - node/test
